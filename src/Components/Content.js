@@ -1,32 +1,55 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Paper from 'material-ui/Paper';
+// import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
+import { CircularProgress } from 'material-ui/Progress';
 
-class Something extends Component {
-    renderProducts = products => {
+class Egg extends Component {
+    render() {
+        let egg = this.props.details;
+        return (
+            <div>
+                {egg.name} | 
+                {egg.rating} | 
+                {egg.price}
+            </div>
+        )
+    }
+}
+
+class EggWrapper extends Component {
+    renderEggs = eggs => {
         if (this.props.display === 'initialState') {
-            return products.map((product, key) => {
+            return eggs.map((egg, key) => {
                 return (
-                    <li key={key}>{product.rating}</li>
+                    <li key={key}>
+                        <Egg details={egg} />
+                    </li>
                 );
             });
         }
         if (this.props.display === 'orderByRating') {
-            const orderItems = products.sort(function(a, b) {
+            const orderItems = eggs.sort(function(a, b) {
                 return a.rating - b.rating;
             })
-            return orderItems.map((product, key) => {
+            return orderItems.map((egg, key) => {
                 return (
-                    <li key={key}>{product.rating}</li>
+                    <li key={key}>
+                        <Egg details={egg} />
+                    </li>
                 );
             });
         }
         if (this.props.display === 'orderAlphabetically') {
-            const orderItems = products.sort(function(a, b) {
+            const orderItems = eggs.sort(function(a, b) {
                 return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0;
             })
-            return orderItems.map((product, key) => {
+            return orderItems.map((egg, key) => {
                 return (
-                    <li key={key}>{product.rating}</li>
+                    <li key={key}>
+                        <Egg details={egg} />
+                    </li>
                 );
             });
         }
@@ -35,7 +58,7 @@ class Something extends Component {
     render() {
         return (
             <ul>
-                {this.renderProducts(this.props.products)}
+                {this.renderEggs(this.props.eggs)}
             </ul>
         )
     }
@@ -62,13 +85,15 @@ export default class Content extends Component {
 
     render() {
         return (
-            <div>
-                <button onClick={() => this.setState({display: 'orderByRating'})}>Order by rating</button>
-                <button onClick={() => this.setState({display: 'orderAlphabetically'})}>Order alphabetically</button>
-                <Something products={this.props.sweetEggs} display={this.state.display} />
-                {this.props.loading &&
-                    <p>fetching data spinner</p>
-                }
+            <div className="wrapper">
+                <Paper className="spacer">
+                    <Button variant="raised" color="primary" onClick={() => this.setState({display: 'orderByRating'})}>Order by rating</Button>
+                    <Button variant="raised" color="primary" onClick={() => this.setState({display: 'orderAlphabetically'})}>Order alphabetically</Button>
+                    <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                    {this.props.loading &&
+                        <CircularProgress />
+                    }
+                </Paper>
             </div>
         )
     }

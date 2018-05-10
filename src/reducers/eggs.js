@@ -27,7 +27,7 @@ export const eggs = (state = initialState, action = {}) => {
       return {
         ...state,
         loading: false,
-        savouryEggs: action.eggs,
+        eggs: action.eggs.concat(state.eggs),
       };
     default:
       return state;

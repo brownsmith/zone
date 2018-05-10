@@ -61,11 +61,18 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
+// const scrambleEggs = (sweet, savoury) => {
+//     console.log('sdsd',sweet);
+//     console.log('sssss', savoury);
+//     return sweet.concat(savoury);
+// }
+
 const mapStateToProps = state => {
     return {
-      sweetEggs: state.eggs.eggs,
-      savouryEggs: state.eggs.savouryEggs,
-      loading: state.eggs.loading,
+        // eggs: scrambleEggs(state.eggs.eggs, state.eggs.savouryEggs),
+        sweetEggs: state.eggs.eggs,
+        savouryEggs: state.eggs.savouryEggs,
+        loading: state.eggs.loading,
     };
   };
 

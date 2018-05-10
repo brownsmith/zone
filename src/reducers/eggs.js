@@ -1,4 +1,4 @@
-import { RECEIVE_EGGS, REQUEST_EGGS } from '../Containers/Content.js';
+import { RECEIVE_EGGS, REQUEST_EGGS, RECEIVE_SAVOURY_EGGS, REQUEST_SAVOURY_EGGS } from '../Containers/Content.js';
 
 const initialState = {
   loading: false,
@@ -17,6 +17,17 @@ export const eggs = (state = initialState, action = {}) => {
         ...state,
         loading: false,
         eggs: action.eggs,
+      };
+    case REQUEST_SAVOURY_EGGS:
+      return {
+        ...state,
+        loading: true,
+      };
+    case RECEIVE_SAVOURY_EGGS:
+      return {
+        ...state,
+        loading: false,
+        savouryEggs: action.eggs,
       };
     default:
       return state;

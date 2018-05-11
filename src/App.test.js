@@ -7,3 +7,11 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
+describe('egg wrapper component', () => {
+  // 
+});
+
+describe('egg component', () => {
+// 
+});

@@ -17,7 +17,7 @@ class App extends Component {
           <AppBar position="static" color="default">
             <Toolbar>
               <Typography variant="title" color="inherit">
-                Title bar
+                EGGS!!
               </Typography>
             </Toolbar>
           </AppBar>

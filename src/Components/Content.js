@@ -89,13 +89,14 @@ export default class Content extends Component {
                 <Grid container spacing={24} alignItems="flex-start" direction="row" justify="flex-start">
                     <Grid item xs={4}>
                         <Paper className="paper">
+                            <h3>Re-order eggs</h3>
                             <Button
                                 fullWidth
                                 className="button"
                                 variant="raised"
                                 color="primary"
                                 onClick={() => this.setState({display: 'orderByHighLowRating'})}
-                            >Button 1</Button>
+                            >Rating: High to Low</Button>
                             <Divider light className="divider" />
                             <Button
                                 fullWidth
@@ -103,7 +104,7 @@ export default class Content extends Component {
                                 variant="raised"
                                 color="primary"
                                 onClick={() => this.setState({display: 'orderByLowHighRating'})}
-                            >Button 2</Button>
+                            >Rating: Low to high</Button>
                             <Divider light className="divider" />
                             <Button
                                 fullWidth
@@ -111,45 +112,45 @@ export default class Content extends Component {
                                 variant="raised"
                                 color="secondary"
                                 onClick={() => this.setState({display: 'orderAlphabetically'})}
-                            >Button 3</Button>
+                            >Alphabetically</Button>
                             <Divider light className="divider" />
                             <Button
                                 fullWidth
                                 className="button"
                                 variant="raised"
                                 onClick={() => this.props.doEverything()}
-                            >Both</Button>
+                            >Get fresh eggs</Button>
                             <Divider light className="divider" />
                             <Button
                                 fullWidth
                                 className="button"
                                 variant="raised"
                                 onClick={() => this.props.fetchSweetEggs()}
-                            >Sweet</Button>
+                            >Get Sweet only</Button>
                         </Paper>
                     </Grid>
                     <Grid item xs={8}>
                         {!this.props.loading && this.state.display === 'orderByHighLowRating' &&
                             <Paper className="paper">
-                                <h3>high low</h3>
+                                <h3>Order high to low</h3>
                                 <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
                             </Paper>
                         }
                         {!this.props.loading && this.state.display === 'orderByLowHighRating' &&
                             <Paper className="paper">
-                                <h3>low high</h3>
+                                <h3>Order low to high</h3>
                                 <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
                             </Paper>
                         }
                         {!this.props.loading && this.state.display === 'orderAlphabetically' &&
                             <Paper className="paper">
-                                <h3>alpha</h3>
+                                <h3>Order alphabetically</h3>
                                 <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
                             </Paper>
                         }
                         {!this.props.loading && this.state.display === 'initialState' &&
                             <Paper className="paper">
-                                <h3>egs</h3>
+                                <h3>Scrambled eggs</h3>
                                 <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
                             </Paper>
                         }

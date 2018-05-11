@@ -1,99 +1,165 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
-// import Grid from 'material-ui/Grid';
+import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
+import Divider from 'material-ui/Divider';
+import Rater from 'react-rater';
+import 'react-rater/lib/react-rater.css';
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
-class Egg extends Component {
+export class Egg extends Component {
     render() {
         let egg = this.props.details;
         return (
-            <div>
-                {egg.name} | 
-                {egg.rating} | 
-                {egg.price}
-            </div>
+            <ListItem className="egg">
+                <Avatar>
+                    EG
+                </Avatar>
+                <ListItemText primary={egg.name} secondary={'Price £' + egg.price} />
+                <Rater rating={egg.rating} total={5} />
+            </ListItem>
         )
     }
 }
 
-class EggWrapper extends Component {
+export class EggWrapper extends Component {
     renderEggs = eggs => {
-        if (this.props.display === 'initialState') {
+        const mapEggs = (eggs) => {
             return eggs.map((egg, key) => {
-                return (
-                    <li key={key}>
-                        <Egg details={egg} />
-                    </li>
-                );
+                return <Egg details={egg} key={key} />;
             });
+        } 
+        if (this.props.display === 'initialState') {
+            return mapEggs(eggs);
         }
-        if (this.props.display === 'orderByRating') {
+        if (this.props.display === 'orderByHighLowRating') {
+            const orderItems = eggs.sort(function(a, b) {
+                return b.rating - a.rating;
+            })
+            return mapEggs(orderItems);
+        }
+        if (this.props.display === 'orderByLowHighRating') {
             const orderItems = eggs.sort(function(a, b) {
                 return a.rating - b.rating;
             })
-            return orderItems.map((egg, key) => {
-                return (
-                    <li key={key}>
-                        <Egg details={egg} />
-                    </li>
-                );
-            });
+            return mapEggs(orderItems);
         }
         if (this.props.display === 'orderAlphabetically') {
             const orderItems = eggs.sort(function(a, b) {
                 return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0;
             })
-            return orderItems.map((egg, key) => {
-                return (
-                    <li key={key}>
-                        <Egg details={egg} />
-                    </li>
-                );
-            });
+            return mapEggs(orderItems);
         }
     }
 
     render() {
         return (
-            <ul>
+            <List className="eggWrapperComponent">
                 {this.renderEggs(this.props.eggs)}
-            </ul>
+            </List>
         )
     }
 }
 
 export default class Content extends Component {
     static propTypes = {
-        fetchEggs: PropTypes.func,
-        sweetEggs: PropTypes.array,
+        fetchSweetEggs: PropTypes.func,
+        fetchSavouryEggs: PropTypes.func,
+        sweetEggs: PropTypes.array, // change to just eggs
         loading: PropTypes.bool,
+        doEverything: PropTypes.func,
     };
 
     componentWillMount() {
-        this.props.fetchSweetEggs();
-        this.props.fetchSavouryEggs();
+        this.props.doEverything();
         this.setState({
             display: 'initialState'
         });
     }
-
-    componentDidMount() {
-        console.log('props of mounted component', this.props.eggs);
+    reFetchData = () => {
+        this.props.doEverything();
     }
 
     render() {
         return (
             <div className="wrapper">
-                <Paper className="spacer">
-                    <Button variant="raised" color="primary" onClick={() => this.setState({display: 'orderByRating'})}>Order by rating</Button>
-                    <Button variant="raised" color="primary" onClick={() => this.setState({display: 'orderAlphabetically'})}>Order alphabetically</Button>
-                    <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
-                    {this.props.loading &&
-                        <CircularProgress />
-                    }
-                </Paper>
+                <Grid container spacing={24} alignItems="flex-start" direction="row" justify="flex-start">
+                    <Grid item xs={4}>
+                        <Paper className="paper">
+                            <Button
+                                fullWidth
+                                className="button"
+                                variant="raised"
+                                color="primary"
+                                onClick={() => this.setState({display: 'orderByHighLowRating'})}
+                            >Button 1</Button>
+                            <Divider light className="divider" />
+                            <Button
+                                fullWidth
+                                className="button"
+                                variant="raised"
+                                color="primary"
+                                onClick={() => this.setState({display: 'orderByLowHighRating'})}
+                            >Button 2</Button>
+                            <Divider light className="divider" />
+                            <Button
+                                fullWidth
+                                className="button"
+                                variant="raised"
+                                color="secondary"
+                                onClick={() => this.setState({display: 'orderAlphabetically'})}
+                            >Button 3</Button>
+                            <Divider light className="divider" />
+                            <Button
+                                fullWidth
+                                className="button"
+                                variant="raised"
+                                onClick={() => this.props.doEverything()}
+                            >Both</Button>
+                            <Divider light className="divider" />
+                            <Button
+                                fullWidth
+                                className="button"
+                                variant="raised"
+                                onClick={() => this.props.fetchSweetEggs()}
+                            >Sweet</Button>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={8}>
+                        {!this.props.loading && this.state.display === 'orderByHighLowRating' &&
+                            <Paper className="paper">
+                                <h3>high low</h3>
+                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                            </Paper>
+                        }
+                        {!this.props.loading && this.state.display === 'orderByLowHighRating' &&
+                            <Paper className="paper">
+                                <h3>low high</h3>
+                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                            </Paper>
+                        }
+                        {!this.props.loading && this.state.display === 'orderAlphabetically' &&
+                            <Paper className="paper">
+                                <h3>alpha</h3>
+                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                            </Paper>
+                        }
+                        {!this.props.loading && this.state.display === 'initialState' &&
+                            <Paper className="paper">
+                                <h3>egs</h3>
+                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                            </Paper>
+                        }
+                        {this.props.loading &&
+                            <Paper className="paper">
+                                <CircularProgress className="spinner" />
+                            </Paper>
+                        }
+                    </Grid>
+                </Grid>
             </div>
         )
     }

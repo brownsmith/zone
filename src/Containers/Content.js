@@ -24,6 +24,13 @@ const fetchSavouryEggs = () => {
   };
 };
 
+function doEverything() {
+  return dispatch => Promise.all([
+    dispatch(fetchSavouryEggs(RECEIVE_SAVOURY_EGGS)),
+    dispatch(fetchSweetEggs(RECEIVE_EGGS))
+  ]);
+}
+
 function requestProducts() {
     return {
       type: REQUEST_EGGS,
@@ -58,18 +65,12 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchSweetEggs: () => dispatch(fetchSweetEggs(RECEIVE_EGGS)),
         fetchSavouryEggs: () => dispatch(fetchSavouryEggs(RECEIVE_SAVOURY_EGGS)),
+        doEverything: () => dispatch(doEverything()),
     };
 };
 
-// const scrambleEggs = (sweet, savoury) => {
-//     console.log('sdsd',sweet);
-//     console.log('sssss', savoury);
-//     return sweet.concat(savoury);
-// }
-
 const mapStateToProps = state => {
     return {
-        // eggs: scrambleEggs(state.eggs.eggs, state.eggs.savouryEggs),
         sweetEggs: state.eggs.eggs,
         savouryEggs: state.eggs.savouryEggs,
         loading: state.eggs.loading,

@@ -7,7 +7,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import CssBaseline from 'material-ui/CssBaseline';
-import Grid from 'material-ui/Grid';
 
 class App extends Component {
   render() {
@@ -18,15 +17,11 @@ class App extends Component {
           <AppBar position="static" color="default">
             <Toolbar>
               <Typography variant="title" color="inherit">
-                Eggs
+                Title bar
               </Typography>
             </Toolbar>
           </AppBar>
-          <Grid container spacing={24}>
-            <Grid item xs={12}>
-              <Content />
-            </Grid>
-          </Grid>
+          <Content />
         </div>
       </Provider>
     );

@@ -1,7 +1,21 @@
 .App {
   flex-grow: 1
 }
+.egg {
+  color: #eee;
+}
+.spacer,
+.wrapper,
+.paper {
+  padding: 20px;
+}
 .spacer {
   margin: 20px;
-  padding: 20px;
+}
+.divider {
+  margin: 10px 0 !important;
+}
+.spinner {
+  display: block !important;
+  margin: 20px auto !important;
 }

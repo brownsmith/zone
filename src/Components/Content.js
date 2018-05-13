@@ -15,8 +15,8 @@ export class Egg extends Component {
         let egg = this.props.details;
         return (
             <ListItem className="egg">
-                <Avatar>
-                    EG
+                <Avatar className={egg.label.toLowerCase()}>
+                    {egg.label}
                 </Avatar>
                 <ListItemText primary={egg.name} secondary={'Price £' + egg.price} />
                 <Rater rating={egg.rating} total={5} />

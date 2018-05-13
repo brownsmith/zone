@@ -7,9 +7,11 @@ import {
   REQUEST_EGGS,
   REQUEST_SAVOURY_EGGS,
   RECEIVE_EGGS,
+  RECEIVE_SAVOURY_EGGS,
   requestProducts,
   requestSavouryEggs,
   receiveProducts,
+  receiveSavouryEggs,
 } from './Containers/Content.js';
 
 configure({ adapter: new Adapter() });
@@ -63,6 +65,18 @@ describe('egg reducers', () => {
     expect(receiveProducts(initialState, receiveProducts)).toEqual(
       {
         type: RECEIVE_EGGS,
+        eggs: {},
+        loading: false,
+      }
+    );
+  });
+
+  it('should handle receiveSavouryEggs', () => {
+    const initialState = {};
+    const json = {};
+    expect(receiveSavouryEggs(initialState, receiveSavouryEggs)).toEqual(
+      {
+        type: RECEIVE_SAVOURY_EGGS,
         eggs: {},
         loading: false,
       }

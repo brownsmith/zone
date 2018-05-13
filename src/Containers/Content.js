@@ -53,7 +53,7 @@ export function receiveProducts(json) {
     };
 }
 
-function receiveSavouryEggs(json) {
+export function receiveSavouryEggs(json) {
   return {
     type: RECEIVE_SAVOURY_EGGS,
     eggs: json,

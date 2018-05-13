@@ -31,21 +31,21 @@ function doEverything() {
   ]);
 }
 
-function requestProducts() {
+export function requestProducts() {
     return {
       type: REQUEST_EGGS,
       loading: true,
     };
 }
 
-function requestSavouryEggs() {
+export function requestSavouryEggs() {
   return {
     type: REQUEST_SAVOURY_EGGS,
     loading: true,
   };
 }
   
-function receiveProducts(json) {
+export function receiveProducts(json) {
     return {
       type: RECEIVE_EGGS,
       eggs: json,

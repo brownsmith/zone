@@ -19,3 +19,24 @@
   display: block !important;
   margin: 20px auto !important;
 }
+.de {
+  background-color: #FF5733 !important;
+}
+.se {
+  background-color: #FFBD33 !important;
+}
+.be {
+  background-color: #DBFF33 !important;
+  color: #222 !important;
+}
+.he {
+  background-color: #75FF33 !important;
+  color: #222 !important;
+}
+.ce {
+  background-color: #33FFBD !important;
+  color: #222 !important;
+}
+.ee {
+  background-color: #337AFF !important;
+}

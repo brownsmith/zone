@@ -8,9 +8,9 @@ import {
   REQUEST_SAVOURY_EGGS,
   RECEIVE_EGGS,
   RECEIVE_SAVOURY_EGGS,
-  requestProducts,
+  requestSweetEggs,
   requestSavouryEggs,
-  receiveProducts,
+  receiveSweetEggs,
   receiveSavouryEggs,
 } from './Containers/Content.js';
 
@@ -39,30 +39,32 @@ describe('egg component', () => {
 });
 
 describe('egg reducers', () => {
-  it('should handle requestProducts', () => {
+  it('should handle requestSweetEggs', () => {
     const initialState = {};
-    expect(requestProducts(initialState, requestProducts)).toEqual(
+    expect(requestSweetEggs(initialState, requestSweetEggs)).toEqual(
       {
         type: REQUEST_EGGS,
         loading: true,
+        eggs: [],
       }
     );
   });
 
   it('should handle requestSavouryEggs', () => {
     const initialState = {};
-    expect(requestSavouryEggs(initialState, requestProducts)).toEqual(
+    expect(requestSavouryEggs(initialState, requestSavouryEggs)).toEqual(
       {
         type: REQUEST_SAVOURY_EGGS,
         loading: true,
+        eggs: [],
       }
     );
   });
 
-  it('should handle receiveProducts', () => {
+  it('should handle receiveSweetEggs', () => {
     const initialState = {};
     const json = {}
-    expect(receiveProducts(initialState, receiveProducts)).toEqual(
+    expect(receiveSweetEggs(initialState, receiveSweetEggs)).toEqual(
       {
         type: RECEIVE_EGGS,
         eggs: {},

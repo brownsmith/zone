@@ -67,8 +67,7 @@ export class EggWrapper extends Component {
 export default class Content extends Component {
     static propTypes = {
         fetchSweetEggs: PropTypes.func,
-        fetchSavouryEggs: PropTypes.func,
-        sweetEggs: PropTypes.array, // change to just eggs
+        eggs: PropTypes.array, // change to just eggs
         loading: PropTypes.bool,
         doEverything: PropTypes.func,
     };
@@ -133,25 +132,25 @@ export default class Content extends Component {
                         {!this.props.loading && this.state.display === 'orderByHighLowRating' &&
                             <Paper className="paper">
                                 <h3>Order high to low</h3>
-                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                                <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
                         {!this.props.loading && this.state.display === 'orderByLowHighRating' &&
                             <Paper className="paper">
                                 <h3>Order low to high</h3>
-                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                                <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
                         {!this.props.loading && this.state.display === 'orderAlphabetically' &&
                             <Paper className="paper">
                                 <h3>Order alphabetically</h3>
-                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                                <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
                         {!this.props.loading && this.state.display === 'initialState' &&
                             <Paper className="paper">
                                 <h3>Scrambled eggs</h3>
-                                <EggWrapper eggs={this.props.sweetEggs} display={this.state.display} />
+                                <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
                         {this.props.loading &&

@@ -8,10 +8,10 @@ export const REQUEST_SAVOURY_EGGS = 'zone/REQUEST_SAVOURY_EGGS';
 
 const fetchSweetEggs = () => {
     return function(dispatch) {
-      dispatch(requestProducts());
+      dispatch(requestSweetEggs());
       return fetch('http://demo2872766.mockable.io/eggs/sweet')
         .then(response => response.json())
-        .then(json => dispatch(receiveProducts(json)));
+        .then(json => dispatch(receiveSweetEggs(json)));
     };
 };
 
@@ -31,10 +31,11 @@ function doEverything() {
   ]);
 }
 
-export function requestProducts() {
+export function requestSweetEggs() {
     return {
       type: REQUEST_EGGS,
       loading: true,
+      eggs: [],
     };
 }
 
@@ -42,10 +43,11 @@ export function requestSavouryEggs() {
   return {
     type: REQUEST_SAVOURY_EGGS,
     loading: true,
+    eggs: [],
   };
 }
   
-export function receiveProducts(json) {
+export function receiveSweetEggs(json) {
     return {
       type: RECEIVE_EGGS,
       eggs: json,
@@ -62,19 +64,18 @@ export function receiveSavouryEggs(json) {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        fetchSweetEggs: () => dispatch(fetchSweetEggs(RECEIVE_EGGS)),
-        fetchSavouryEggs: () => dispatch(fetchSavouryEggs(RECEIVE_SAVOURY_EGGS)),
-        doEverything: () => dispatch(doEverything()),
-    };
+  return {
+      fetchSweetEggs: () => dispatch(fetchSweetEggs(RECEIVE_EGGS)),
+      doEverything: () => dispatch(doEverything()),
+  };
 };
 
 const mapStateToProps = state => {
-    return {
-        sweetEggs: state.eggs.eggs,
-        savouryEggs: state.eggs.savouryEggs,
-        loading: state.eggs.loading,
-    };
+  return {
+      eggs: state.eggs.eggs,
+      savouryEggs: state.eggs.savouryEggs,
+      loading: state.eggs.loading,
   };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content);

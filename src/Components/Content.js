@@ -124,8 +124,8 @@ export default class Content extends Component {
                                 fullWidth
                                 className="button"
                                 variant="raised"
-                                onClick={() => this.props.fetchSweetEggs()}
-                            >Get Sweet only</Button>
+                                onClick={() => this.props.doEverything(true)}
+                            >Get Savoury only</Button>
                         </Paper>
                     </Grid>
                     <Grid item xs={8}>

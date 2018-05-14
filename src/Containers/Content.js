@@ -10,8 +10,7 @@ const fetchSweetEggs = () => {
     return function(dispatch) {
       dispatch(requestSweetEggs());
       return fetch('http://demo2872766.mockable.io/eggs/sweet')
-        .then(response => response.json())
-        .then(json => dispatch(receiveSweetEggs(json)));
+        .then(response => response.json());
     };
 };
 
@@ -19,16 +18,23 @@ const fetchSavouryEggs = () => {
   return function(dispatch) {
     dispatch(requestSavouryEggs());
     return fetch('http://demo2872766.mockable.io/eggs/savoury')
-      .then(response => response.json())
-      .then(json => dispatch(receiveSavouryEggs(json)));
+      .then(response => response.json());
   };
 };
 
-function doEverything() {
-  return dispatch => Promise.all([
-    dispatch(fetchSavouryEggs(RECEIVE_SAVOURY_EGGS)),
-    dispatch(fetchSweetEggs(RECEIVE_EGGS))
-  ]);
+function doEverything(onlySavoury) {
+  return function(dispatch) {
+    const promises = [dispatch(fetchSavouryEggs(RECEIVE_SAVOURY_EGGS))];
+
+    if (!onlySavoury) {
+      promises.push(dispatch(fetchSweetEggs(RECEIVE_EGGS)));
+    }
+
+    return Promise.all(promises).then(json => {
+      const allEggs = [...json[0], ...(json.length === 2 ? json[1] : [])];
+      dispatch(receiveSweetEggs(allEggs));
+    });
+  };
 }
 
 export function requestSweetEggs() {
@@ -66,7 +72,7 @@ export function receiveSavouryEggs(json) {
 const mapDispatchToProps = dispatch => {
   return {
       fetchSweetEggs: () => dispatch(fetchSweetEggs(RECEIVE_EGGS)),
-      doEverything: () => dispatch(doEverything()),
+      doEverything: (onlySavoury) => dispatch(doEverything(onlySavoury)),
   };
 };
 

@@ -16,7 +16,7 @@ export const eggs = (state = initialState, action = {}) => {
       return {
         ...state,
         loading: false,
-        eggs: [...state.eggs.filter((egg) => egg.category !== 'sweet'), ...action.eggs],
+        eggs: action.eggs,
       };
     case REQUEST_SAVOURY_EGGS:
       return {

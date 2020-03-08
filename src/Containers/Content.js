@@ -5,12 +5,16 @@ export const RECEIVE_EGGS = 'zone/RECEIVE_EGGS';
 export const REQUEST_EGGS = 'zone/REQUEST_EGGS';
 export const RECEIVE_SAVOURY_EGGS = 'zone/RECEIVE_SAVOURY_EGGS';
 export const REQUEST_SAVOURY_EGGS = 'zone/REQUEST_SAVOURY_EGGS';
+export const REQUEST_ERROR = 'shit/on/it';
 
 const fetchSweetEggs = () => {
     return function(dispatch) {
       dispatch(requestSweetEggs());
       return fetch('http://demo2872766.mockable.io/eggs/sweet')
-        .then(response => response.json());
+        .then(response => response.json()).catch((response) => {
+          console.log("error", response);
+          dispatch(errorResponse(response));
+      });
     };
 };
 
@@ -34,6 +38,12 @@ function doEverything(onlySavoury) {
       const allEggs = [...json[0], ...(json.length === 2 ? json[1] : [])];
       dispatch(receiveSweetEggs(allEggs));
     });
+  };
+}
+
+export function errorResponse() {
+  return {
+    type: REQUEST_ERROR,
   };
 }
 
@@ -81,6 +91,7 @@ const mapStateToProps = state => {
       eggs: state.eggs.eggs,
       savouryEggs: state.eggs.savouryEggs,
       loading: state.eggs.loading,
+      error: state.eggs.error,
   };
 };
 

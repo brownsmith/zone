@@ -70,6 +70,7 @@ export default class Content extends Component {
         eggs: PropTypes.array, // change to just eggs
         loading: PropTypes.bool,
         doEverything: PropTypes.func,
+        error: PropTypes.bool,
     };
 
     componentWillMount() {
@@ -83,6 +84,7 @@ export default class Content extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div className="wrapper">
                 <Grid container spacing={24} alignItems="flex-start" direction="row" justify="flex-start">
@@ -129,33 +131,38 @@ export default class Content extends Component {
                         </Paper>
                     </Grid>
                     <Grid item xs={8}>
-                        {!this.props.loading && this.state.display === 'orderByHighLowRating' &&
+                        {!this.props.loading && this.state.display === 'orderByHighLowRating' && !this.props.error &&
                             <Paper className="paper">
                                 <h3>Order high to low</h3>
                                 <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
-                        {!this.props.loading && this.state.display === 'orderByLowHighRating' &&
+                        {!this.props.loading && this.state.display === 'orderByLowHighRating' && !this.props.error &&
                             <Paper className="paper">
                                 <h3>Order low to high</h3>
                                 <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
-                        {!this.props.loading && this.state.display === 'orderAlphabetically' &&
+                        {!this.props.loading && this.state.display === 'orderAlphabetically' && !this.props.error &&
                             <Paper className="paper">
                                 <h3>Order alphabetically</h3>
                                 <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
-                        {!this.props.loading && this.state.display === 'initialState' &&
+                        {!this.props.loading && this.state.display === 'initialState' && !this.props.error &&
                             <Paper className="paper">
                                 <h3>Scrambled eggs</h3>
                                 <EggWrapper eggs={this.props.eggs} display={this.state.display} />
                             </Paper>
                         }
-                        {this.props.loading &&
+                        {this.props.loading && !this.props.error &&
                             <Paper className="paper">
                                 <CircularProgress className="spinner" />
+                            </Paper>
+                        }
+                        {this.props.error &&
+                            <Paper className="paper">
+                                <h3>There has been an error</h3>
                             </Paper>
                         }
                     </Grid>

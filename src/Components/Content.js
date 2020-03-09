@@ -84,7 +84,6 @@ export default class Content extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="wrapper">
                 <Grid container spacing={24} alignItems="flex-start" direction="row" justify="flex-start">

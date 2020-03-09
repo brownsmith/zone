@@ -16,4 +16,8 @@ describe('Content', () => {
 
   test('existing member redirects to membership page', () =>
     expect(render(true)).toMatchSnapshot());
+
+  test('has an egg wrapper', () => {
+    expect(render().find('.wrapper')).toHaveLength(1);
+  });
 });

@@ -5,7 +5,7 @@ export const RECEIVE_EGGS = 'zone/RECEIVE_EGGS';
 export const REQUEST_EGGS = 'zone/REQUEST_EGGS';
 export const RECEIVE_SAVOURY_EGGS = 'zone/RECEIVE_SAVOURY_EGGS';
 export const REQUEST_SAVOURY_EGGS = 'zone/REQUEST_SAVOURY_EGGS';
-export const REQUEST_ERROR = 'shit/on/it';
+export const REQUEST_ERROR = 'zone/REQUEST_ERROR';
 
 const fetchSweetEggs = () => {
     return function(dispatch) {
